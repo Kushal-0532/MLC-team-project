@@ -10,7 +10,6 @@ page = reader.pages[0]
 from openai import OpenAI
 
 client = OpenAI(api_key="Put your api key here")
-import PyPDF2
 
 import PyPDF2
 reader = PyPDF2.PdfReader('put pdf destination here')     
