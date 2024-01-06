@@ -14,18 +14,15 @@ for page in pdfReader.pages:
 
 llm = OpenAI(model_name="text-davinci-003", openai_api_key=openai_api_key)
 
-prompt = """
+prompt_to_ask_gpt = """
 Generate 5 questions and their answers based on this text:
-{text}
+{Textfrompdf}
 """
-
-prompt_template = PromptTemplate(template=prompt, input_variables=["text"])
+prompt_template = PromptTemplate(template=prompt_to_ask_gpt,input_variables=["Textfrompdf"])   #Prompt to be asked
 
 chain = LLMChain(llm=llm, prompt=prompt_template)
+Textfrompdf= pdfText
 
-
-text = pdfText
-
-result = chain.run(text)
+result = chain.run(Textfrompdf)
 
 print("\nGenerated questions:",result)
