@@ -16,14 +16,16 @@ llm = OpenAI(model_name="text-davinci-003", openai_api_key=openai_api_key)
 
 prompt = """
 Generate 5 questions and their answers based on this text:
-{0}
-""".format(pdfText)
+{text}
+"""
 
 prompt_template = PromptTemplate(template=prompt, input_variables=["text"])
 
 chain = LLMChain(llm=llm, prompt=prompt_template)
 
 
-result = chain.run(pdfText)
+text = pdfText
+
+result = chain.run(text)
 
 print("\nGenerated questions:",result)
