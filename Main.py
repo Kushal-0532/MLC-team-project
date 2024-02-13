@@ -11,10 +11,10 @@ from functions_sb import spliter, extract_text,initialize_llm,questions_generato
 import streamlit as st
 import os
 from openai import OpenAI
-key = "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" 
+key = "API Goes here" 
 
 st.title("Skynet the study Buddy")
-os.environ["OPENAI_API_KEY"]='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'
+os.environ["OPENAI_API_KEY"]='Api Goes here'
 uploaded_file=st.file_uploader(label='Put your pdfs here!',type=['pdf'])
 
 
