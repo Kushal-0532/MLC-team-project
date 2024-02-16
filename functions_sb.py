@@ -39,8 +39,7 @@ def questions_generator(llm,chain_type,doc):
 def answer_generator(llm,doc,quero):
     prompter = PromptTemplate(
  input_variables=["question", "answer"],
- template="Question:{question}\n User's answer: {answer}.\nProvide necessary corrections."
-)
+ template="You are a study helper. If correct you tell so, otherwise give the necessary corrections. \nQuestion:{question}\n User's answer: {answer}")
     prompter.format(question=quero,answer=doc)
     chain = LLMChain(llm=llm,prompt=prompter)
     corrected=chain.run(question=quero,answer=doc)
@@ -54,20 +53,3 @@ def create_retrieval_qa_chain(doc,llm):
 
     return retrieval_qa_chain
 
-def initialize_llm_answer_correct(llm, question, answer):
-
-    template = PromptTemplate(
-        template="You are are study buddy. You are to grade the user's answer. If they are correct, you say so otherwise please correct their answer. \nQ: {question}\nA: {answer}\nYour response:", input_variables=['question','answer']
-    )
-
-    embedding = OpenAIEmbeddings()
-    
-    db = Chroma.from_documents([template], embedding=embedding)
-
-    chain = LLMChain(
-        llm=llm,
-        prompt=template,
-        vectorstore=db
-    )
-
-    return chain
